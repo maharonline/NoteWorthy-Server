@@ -42,7 +42,7 @@ app.use("/api/download",download)
 app.use("/api/feedback",feedback)
 app.use("/api/frontend",frontend)
 
-const PORT=8000;
+const PORT=process.env.PORT;
 
 app.listen(PORT,()=>{
     console.log("Server is Running At",PORT);

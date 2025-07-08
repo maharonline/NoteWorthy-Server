@@ -102,7 +102,7 @@ export const loginUser = async (req, res) => {
     await user.save();
 
     // 🧠 Generate token
-    const token = jwt.sign({ _id: user._id }, "secret-key", { expiresIn: "24h" });
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "24h" });
 
     const cookieOptions = {
       httpOnly: true,
