@@ -372,8 +372,8 @@ export const getallStudent = async (req, res) => {
 export const logoutUser = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false, 
-    sameSite: "Lax",
+    secure: true, 
+    sameSite: "none",
   });
   res.json({ message: "Logged out Successfully" });
 }
