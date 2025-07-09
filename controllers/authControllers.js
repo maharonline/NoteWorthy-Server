@@ -44,8 +44,8 @@ export const registerUser = async (req, res) => {
 
     res.cookie("uid", newuser._id.toString(), {
       httpOnly: true,
-      secure: false, // production mein `true` hona chahiye (https)
-      sameSite: "lax", // ya "strict" agar same origin hai
+      secure: true, // production mein `true` hona chahiye (https)
+      sameSite: "none", // ya "strict" agar same origin hai
       maxAge: 5 * 60 * 1000, // 5 minutes (OTP validity)
     })
       .status(201).json({ message: "Registered Successfully. Check Email for OTP", success: true, });
