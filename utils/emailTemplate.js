@@ -50,7 +50,7 @@ export const sendForgotPasswordEmail = async (user, generateToken) => {
         <p>Hello <strong>${user.userName}</strong>,</p>
         <p>Click below to reset your password:</p>
         <div style="text-align: center; margin: 20px 0;">
-          <a href="http://localhost:3000/auth/resetPassword?token=${generateToken}&id=${user._id}" 
+          <a href="https://note-worthy-client-ueh3.vercel.app/auth/resetPassword?token=${generateToken}&id=${user._id}" 
              style="display: inline-block; padding: 12px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
              Reset Password
           </a>
@@ -72,7 +72,7 @@ export const sendPasswordResetSuccessEmail = async (user) => {
         <p>Hello <strong>${user.userName}</strong>,</p>
         <p>Your password has been changed successfully.</p>
         <div style="text-align: center; margin: 20px 0;">
-          <a href="http://localhost:3000/auth/login" 
+          <a href="https://note-worthy-client-ueh3.vercel.app/auth/login" 
              style="display: inline-block; padding: 12px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
              Login Now
           </a>
@@ -133,7 +133,7 @@ export const sendApprovedTeacherEmail = async (user) => {
         <p>We're excited to inform you that your application to join <strong>NoteWorthy</strong> as a teacher has been <strong>approved</strong>.</p>
         <p>You can now log in to your account and start contributing to the platform.</p>
         <br/>
-        <p><a href="http://localhost:3000/auth/login" style="color: #1d4ed8; font-weight: bold;">Click here to log in</a></p>
+        <p><a href="https://note-worthy-client-ueh3.vercel.app/auth/login" style="color: #1d4ed8; font-weight: bold;">Click here to log in</a></p>
         <br/>
         <p>If you have any questions, feel free to contact us at: <a href="mailto:support@noteworthy.com">support@noteworthy.com</a></p>
         <br/>
