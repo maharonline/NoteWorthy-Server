@@ -439,7 +439,7 @@ import { generateOtp } from "../utils/mail.js";
 import { isValidObjectId } from "mongoose";
 import { ResetToken } from "../models/resetToken.js";
 import { createRandomByte } from "../utils/helper.js";
-import { sendForgotPasswordEmail, sendPasswordResetSuccessEmail, sendVerificationEmail, sendVerificationEmailMsg } from "../utils/emailTemplate.js";
+import { sendForgotPasswordEmail, sendPasswordResetSuccessEmail, sendVerificationEmail, sendVerificationEmailMsg,sendDeletionWarningEmail } from "../utils/emailTemplate.js";
 import { Admin } from "../models/adminModel.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { DeletedUser } from "../models/deletedUserModel.js";
@@ -921,6 +921,8 @@ export const deleteAccount = async (req, res) => {
 
       await user.save();
 
+      await sendDeletionWarningEmail(user)
+      
       return res.json({
         success: true,
         message: "Account will be permanently deleted in 24 hours. Login before that to cancel deletion.",
