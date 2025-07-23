@@ -12,5 +12,6 @@ router.get("/get",getNotes)
 router.get("/user/:userId", getNotesByUserId);
 router.delete("/delete/:id",deleteNotes)
 router.get("/getNotesUploadedByTeacher",getNotesUploadedByTeacher)
+router.post("/like/:noteId",likeNote)
 
 export default router;
