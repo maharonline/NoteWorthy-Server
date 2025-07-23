@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: "https://note-worthy-client-ueh3.vercel.app",
   credentials: true
 }));
 app.use(cookieParser())
