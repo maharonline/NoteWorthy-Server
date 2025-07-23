@@ -1,5 +1,7 @@
 import { mailTransport } from "./mail.js";
 
+//Resolved merge conflicts in authControllers.js and emailTemplate.js
+
 const centeredEmailTemplate = (title, content) => `
   <div style="background-color: #f4f4f4; padding: 30px;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -50,7 +52,9 @@ export const sendForgotPasswordEmail = async (user, generateToken) => {
         <p>Hello <strong>${user.userName}</strong>,</p>
         <p>Click below to reset your password:</p>
         <div style="text-align: center; margin: 20px 0;">
-          <a href="http://localhost:3000/auth/resetPassword?token=${generateToken}&id=${user._id}" 
+
+          <a href="${process.env.FRONTEND_URL}/auth/resetPassword?token=${generateToken}&id=${user._id}" 
+
              style="display: inline-block; padding: 12px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
              Reset Password
           </a>
@@ -72,7 +76,9 @@ export const sendPasswordResetSuccessEmail = async (user) => {
         <p>Hello <strong>${user.userName}</strong>,</p>
         <p>Your password has been changed successfully.</p>
         <div style="text-align: center; margin: 20px 0;">
-          <a href="http://localhost:3000/auth/login" 
+
+          <a href="${process.env.FRONTEND_URL}/auth/login" 
+
              style="display: inline-block; padding: 12px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
              Login Now
           </a>
@@ -133,7 +139,10 @@ export const sendApprovedTeacherEmail = async (user) => {
         <p>We're excited to inform you that your application to join <strong>NoteWorthy</strong> as a teacher has been <strong>approved</strong>.</p>
         <p>You can now log in to your account and start contributing to the platform.</p>
         <br/>
-        <p><a href="http://localhost:3000/auth/login" style="color: #1d4ed8; font-weight: bold;">Click here to log in</a></p>
+
+
+        <p><a href="${process.env.FRONTEND_URL}/auth/login" style="color: #1d4ed8; font-weight: bold;">Click here to log in</a></p>
+
         <br/>
         <p>If you have any questions, feel free to contact us at: <a href="mailto:support@noteworthy.com">support@noteworthy.com</a></p>
         <br/>
@@ -162,5 +171,55 @@ export const sendContactMessage = async ({ name, email, message }) => {
     console.log("📨 Contact message sent successfully!");
   } catch (error) {
     console.error("❌ Error sending contact message:", error);
+  }
+};
+
+
+export const sendRestoredAccountEmail = async (user) => {
+  try {
+    await mailTransport.sendMail({
+      from: '"NoteWorthy Team" <no-reply@noteworthy.com>',
+      to: user.email,
+      subject: "Account Restored - NoteWorthy",
+      html: centeredEmailTemplate("Your Account Has Been Restored 🎉", `
+        <p>Hello <strong>${user.userName}</strong>,</p>
+        <p>We're happy to inform you that your <strong>NoteWorthy</strong> account has been successfully <strong>restored</strong>.</p>
+        <p>To ensure your account's security, we recommend resetting your password.</p>
+        <br/>
+        <p><a href="${process.env.FRONTEND_URL}/auth/forgotPassword" style="color: #1d4ed8; font-weight: bold;">Click here to reset your password</a></p>
+        <br/>
+        <p>If you did not expect this restoration, please contact our support team immediately at: <a href="mailto:support@noteworthy.com">support@noteworthy.com</a></p>
+        <br/>
+        <p>Welcome back!</p>
+        <p>– The NoteWorthy Team</p>
+      `),
+    });
+  } catch (error) {
+    console.error("Error sending restored account email:", error);
+  }
+};
+
+
+export const sendDeletionWarningEmail = async (user) => {
+  try {
+    await mailTransport.sendMail({
+      from: '"NoteWorthy Team" <no-reply@noteworthy.com>',
+      to: user.email,
+      subject: "Account Deletion Warning - 24 Hours Remaining",
+      html: centeredEmailTemplate("Your Account is Scheduled for Deletion ⏳", `
+        <p>Hello <strong>${user.userName}</strong>,</p>
+        <p>This is a final reminder that your <strong>NoteWorthy</strong> account is scheduled to be permanently <strong>deleted in the next 24 hours</strong>.</p>
+        <p>If you want to keep your account, simply log in before the 24-hour period ends. Doing so will automatically cancel the deletion process.</p>
+        <br/>
+        <p><a href="${process.env.FRONTEND_URL}/auth/login" style="color: #dc2626; font-weight: bold;">Click here to log in and restore your account</a></p>
+        <br/>
+        <p>If no action is taken, your data will be permanently erased and cannot be recovered.</p>
+        <p>For any issues or questions, contact us at: <a href="mailto:support@noteworthy.com">support@noteworthy.com</a></p>
+        <br/>
+        <p>– The NoteWorthy Team</p>
+      `),
+    });
+  } catch (error) {
+    console.error("Error sending deletion warning email:", error);
   }
 };
