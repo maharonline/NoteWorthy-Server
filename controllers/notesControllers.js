@@ -160,3 +160,36 @@ export const getNotesUploadedByTeacher = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+export const likeNote = async (req, res) => {
+  try {
+    const userId = req.body.userId; 
+    const noteId = req.params.noteId;
+
+    const note = await Note.findById(noteId);
+    if (!note) return res.status(404).json({ message: "Note not found" });
+
+    const alreadyLiked = note.likes.includes(userId);
+    if (alreadyLiked) {
+      // Unlike
+      note.likes.pull(userId);
+      await note.save();
+
+      await Subject.findByIdAndUpdate(note.subject, { $inc: { totalLikes: -1 } });
+
+      return res.json({ liked: false, message: "Note unliked" });
+    } else {
+      // Like
+      note.likes.push(userId);
+      await note.save();
+
+      await Subject.findByIdAndUpdate(note.subject, { $inc: { totalLikes: 1 } });
+
+      return res.json({ liked: true, message: "Note liked" });
+    }
+
+  } catch (error) {
+    console.error("Like error:", error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
