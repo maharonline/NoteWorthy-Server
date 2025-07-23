@@ -8,9 +8,12 @@ const noteSchema = new mongoose.Schema(
     fileUrl: { type: String, required: true }, 
     uploadedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false },
     subject: { type: mongoose.Schema.Types.ObjectId, ref: "Subject", required: true },
+    likes: [{ type: mongoose.Schema.Types.ObjectId}]
   },
   { timestamps: true }
 );
 
 export const Note = mongoose.model("Note", noteSchema);
+
+
 
