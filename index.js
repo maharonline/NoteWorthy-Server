@@ -43,6 +43,8 @@ app.use("/api/download",download)
 app.use("/api/feedback",feedback)
 app.use("/api/frontend",frontend)
 
+startDeletionCron();
+
 const PORT=process.env.PORT;
 
 app.listen(PORT,()=>{
