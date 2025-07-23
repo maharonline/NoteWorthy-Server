@@ -28,7 +28,9 @@ import admin from './routes/admin.routes.js';
 import favourite from './routes/favourite.routes.js';
 import download from './routes/download.routes.js';
 import feedback from './routes/feedback.routes.js';
+import deletedUser from './routes/deletedUser.routes.j
 import frontend from './routes/frontend.routes.js';
+import { startDeletionCron } from './utils/deleteExpiredUsers.js';
 
 
 // app.use("/api/course",course)
@@ -41,6 +43,7 @@ app.use("/api/admin",admin)
 app.use("/api/favourite",favourite)
 app.use("/api/download",download)
 app.use("/api/feedback",feedback)
+app.use("/api/deletedUser", deletedUser)
 app.use("/api/frontend",frontend)
 
 startDeletionCron();
