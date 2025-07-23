@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {  createNoteonsubjecttilte, deleteNotes, getNotes, getNotesByUserId, getNotesUploadedByTeacher,, likeNote } from '../controllers/notesControllers.js';
+import {  createNoteonsubjecttilte, deleteNotes, getNotes, getNotesByUserId, getNotesUploadedByTeacher, likeNote } from '../controllers/notesControllers.js';
 import authenticateUser from '../middleware/auth.middleware.js';
 import { upload } from '../middleware/multer.middleware.js';
 
