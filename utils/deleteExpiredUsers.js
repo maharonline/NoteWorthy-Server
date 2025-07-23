@@ -1,7 +1,7 @@
 import {Student} from '../models/auth.js';
 import {Teacher} from '../models/teacherModel.js';
 import {DeletedUser} from '../models/deletedUserModel.js';
-import { sendDeletionWarningEmail } from './emailTemplate.js';
+import { sendDeletedAccountEmail } from './emailTemplate.js';
 
 export const startDeletionCron = () => {
   setInterval(async () => {
@@ -28,7 +28,7 @@ export const startDeletionCron = () => {
 
       await Student.deleteOne({ _id: user._id });
 
-      await sendDeletionWarningEmail(user);
+      await sendDeletedAccountEmail(user);
     }
 
     // ===== Delete expired Teachers =====
@@ -51,7 +51,7 @@ export const startDeletionCron = () => {
 
       await Teacher.deleteOne({ _id: user._id });
 
-      await sendDeletionWarningEmail(user);
+      await sendDeletedAccountEmail(user);
     }
 
     // console.log(`[CRON] Auto-deleted expired users at ${new Date().toISOString()}`);
