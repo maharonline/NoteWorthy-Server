@@ -903,8 +903,8 @@ export const deleteAccount = async (req, res) => {
     let user = await Student.findById(id);
     if (user) {
       user.isMarkedForDeletion = true;
-      user.deletionTimestamp = new Date(Date.now() + 24 * 60 * 60 * 1000); 
-      //  user.deletionTimestamp = new Date(Date.now() + 10 * 1000);
+      // user.deletionTimestamp = new Date(Date.now() + 24 * 60 * 60 * 1000); 
+       user.deletionTimestamp = new Date(Date.now() + 10 * 1000);
       await user.save();
 
       return res.json({
@@ -916,8 +916,8 @@ export const deleteAccount = async (req, res) => {
     user = await Teacher.findById(id);
     if (user) {
       user.isMarkedForDeletion = true;
-      user.deletionTimestamp = new Date(Date.now() + 24 * 60 * 60 * 1000); 
-      // user.deletionTimestamp = new Date(Date.now() + 10 * 1000);
+      // user.deletionTimestamp = new Date(Date.now() + 24 * 60 * 60 * 1000); 
+      user.deletionTimestamp = new Date(Date.now() + 10 * 1000);
 
       await user.save();
 
