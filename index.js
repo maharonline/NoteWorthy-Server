@@ -28,7 +28,7 @@ import admin from './routes/admin.routes.js';
 import favourite from './routes/favourite.routes.js';
 import download from './routes/download.routes.js';
 import feedback from './routes/feedback.routes.js';
-import deletedUser from './routes/deletedUser.routes.j
+import deletedUser from './routes/deletedUser.routes.js
 import frontend from './routes/frontend.routes.js';
 import { startDeletionCron } from './utils/deleteExpiredUsers.js';
 
