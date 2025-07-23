@@ -223,3 +223,28 @@ export const sendDeletionWarningEmail = async (user) => {
     console.error("Error sending deletion warning email:", error);
   }
 };
+
+
+export const sendDeletedAccountEmail = async (user) => {
+  try {
+    await mailTransport.sendMail({
+      from: '"NoteWorthy Team" <no-reply@noteworthy.com>',
+      to: user.email,
+      subject: "Account Deleted - NoteWorthy",
+      html: centeredEmailTemplate("Your Account Has Been Deleted ❌", `
+        <p>Hello <strong>${user.userName}</strong>,</p>
+        <p>We wanted to inform you that your <strong>NoteWorthy</strong> account has been successfully <strong>deleted</strong>.</p>
+        <p>If this was a mistake or you wish to restore your account, please contact our support department as soon as possible.</p>
+        <br/>
+        <p>📧 <a href="mailto:support@noteworthy.com">support@noteworthy.com</a></p>
+        <br/>
+        <p>If you did not initiate this deletion, we recommend contacting us immediately.</p>
+        <br/>
+        <p>Thank you for using NoteWorthy.</p>
+        <p>– The NoteWorthy Team</p>
+      `),
+    });
+  } catch (error) {
+    console.error("Error sending deleted account email:", error);
+  }
+};
