@@ -9,16 +9,55 @@ import { createRandomByte } from "../utils/helper.js";
 
 
 //Teacher Ki Register Api
+// export const registerTeacher = async (req, res) => {
+//     const { email, password, teacherName, department, employeeId,userName } = req.body;
+
+//     try {
+        
+//         const teacher = await Teacher.findOne({ $or: [{ email }, { employeeId }] })
+//         if (teacher) { return res.status(409).json({ msg: "Already Exist!Please Contact with Department" }) }
+
+//         const hashPassword = await bcrypt.hash(password, 10)
+//         const newTeacher = new Teacher({ email, password: hashPassword, teacherName, department, employeeID:employeeId,status:"pending" ,userName})
+//         // Generate OTP
+//     const OTP = generateOtp();
+//     const verificationToken = new verifyToken({
+//       owner: newTeacher._id,
+//       token: OTP,
+//       ownerModel:"teacher"
+//     });
+//     await verificationToken.save();
+//     await newTeacher.save();
+
+//     // Send Email msg template that is in utlis
+//     await sendVerificationEmail(newTeacher,OTP)
+
+//     // res.status(201).json({ message: "Registered Successfully. Check Email for OTP", error: false,userId:newuser._id });
+
+//     res.cookie("uid", newTeacher._id.toString(), {
+//     httpOnly: true,
+//     secure: true, // production mein `true` hona chahiye (https)
+//     sameSite: "none", // ya "strict" agar same origin hai
+//     maxAge: 5 * 60 * 1000, // 5 minutes (OTP validity)
+//   })
+//   .status(201).json({message: "Registered Successfully. Check Email for OTP",success: true,});
+        
+//     } catch (error) {
+//         res.status(501).json({ msg: "Something Went Wrong" ,success:false})
+//         console.error(error)
+//     }
+// }
+
 export const registerTeacher = async (req, res) => {
-    const { email, password, teacherName, department, employeeId,userName } = req.body;
+    const { email, password, teacherName, department,userName,jobLetterUrl } = req.body;
 
     try {
         
-        const teacher = await Teacher.findOne({ $or: [{ email }, { employeeId }] })
+        const teacher = await Teacher.findOne({ $or: [{ email }] })
         if (teacher) { return res.status(409).json({ msg: "Already Exist!Please Contact with Department" }) }
 
         const hashPassword = await bcrypt.hash(password, 10)
-        const newTeacher = new Teacher({ email, password: hashPassword, teacherName, department, employeeID:employeeId,status:"pending" ,userName})
+        const newTeacher = new Teacher({ email, password: hashPassword, teacherName,jobLetterUrl, department,status:"pending" ,userName})
         // Generate OTP
     const OTP = generateOtp();
     const verificationToken = new verifyToken({
